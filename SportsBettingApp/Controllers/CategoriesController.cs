@@ -19,14 +19,14 @@ namespace SportsBettingApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Categories category)
+        public async Task<IActionResult> Create(Categories category)
         {
             if ( !ModelState.IsValid)
             {
                 return View(category);
             }
 
-            categoriesRepository.Create(category);
+            await categoriesRepository.Create(category);
 
             return View();
         }
