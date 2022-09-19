@@ -1,0 +1,19 @@
+﻿@model Categories 
+
+@{
+    ViewData["Title"] = "Create Category";
+}
+
+<h1>Create Category</h1>
+<h5>Create the different categories by which the bets can be organized.</h5>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form>
+    <div class="col-md-6 mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input type="text" asp-for="Name" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
