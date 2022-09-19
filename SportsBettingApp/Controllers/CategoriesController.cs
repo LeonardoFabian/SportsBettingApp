@@ -1,10 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SportsBettingApp.Models;
+using SportsBettingApp.Services;
 
 namespace SportsBettingApp.Controllers
 {
     public class CategoriesController : Controller
     {
+        private readonly ICategoriesRepository categoriesRepository;
+
+        public CategoriesController(ICategoriesRepository categoriesRepository)
+        {
+            this.categoriesRepository = categoriesRepository;
+        }
+
         public IActionResult Create()
         {
             return View();
@@ -17,6 +25,9 @@ namespace SportsBettingApp.Controllers
             {
                 return View(category);
             }
+
+            categoriesRepository.Create(category);
+
             return View();
         }
     }
