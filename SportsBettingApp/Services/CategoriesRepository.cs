@@ -7,6 +7,7 @@ namespace SportsBettingApp.Services
     public interface ICategoriesRepository
     {
         Task Create(Categories categories);
+        Task<bool> Exists(string name);
     }
 
     public class CategoriesRepository : ICategoriesRepository   
@@ -21,11 +22,25 @@ namespace SportsBettingApp.Services
         public async Task Create(Categories categories)
         {
             using var connection = new SqlConnection(connectionString);
-            var id = await connection.QuerySingleAsync<int>($@"INSERT INTO Categories (Name)
-                                                    VALUES(@Name);
-                                                    SELECT SCOPE_IDENTITY();", categories);
+            var id = await connection.QuerySingleAsync<int>(
+                @"INSERT INTO Categories (Name)
+                VALUES(@Name);
+                SELECT SCOPE_IDENTITY();", 
+                categories);
 
             categories.Id = id;
+        }
+
+        public async Task<bool> Exists(string name)
+        {
+            using var connection = new SqlConnection(connectionString);
+            var exists = await connection.QueryFirstOrDefaultAsync<int>(
+                @"SELECT 1
+                FROM Categories
+                WHERE Name = @Name;",
+                new {name} );
+
+            return exists == 1;
         }
     }
 }

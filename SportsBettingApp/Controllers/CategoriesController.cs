@@ -26,6 +26,15 @@ namespace SportsBettingApp.Controllers
                 return View(category);
             }
 
+            var alreadyExistsCategory = await categoriesRepository.Exists(category.Name);
+
+            if (alreadyExistsCategory)
+            {
+                ModelState.AddModelError(nameof(category.Name), $"The name {category.Name} already exists.");
+
+                return View(category);
+            }
+
             await categoriesRepository.Create(category);
 
             return View();
