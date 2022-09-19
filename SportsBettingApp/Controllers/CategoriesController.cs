@@ -13,7 +13,7 @@ namespace SportsBettingApp.Controllers
         [HttpPost]
         public IActionResult Create(Categories category)
         {
-            if( !ModelState.IsValid)
+            if ( !ModelState.IsValid)
             {
                 return View(category);
             }

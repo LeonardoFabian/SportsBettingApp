@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SportsBettingApp.Validations;
+using System.ComponentModel.DataAnnotations;
 
 namespace SportsBettingApp.Models
 {
@@ -9,6 +10,7 @@ namespace SportsBettingApp.Models
         [Required(ErrorMessage = "The {0} field is required")]
         [StringLength(maximumLength: 50, MinimumLength = 3, ErrorMessage = "The length of the {0} field must be between {2} and {1}")]
         [Display(Name = "Category Name")]
+        [FirstLetterToUppercase]
         public string Name { get; set; }
     }
 }
