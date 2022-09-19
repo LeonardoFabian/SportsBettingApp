@@ -39,5 +39,18 @@ namespace SportsBettingApp.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> VerifyIfCategoryAlreadyExists(string name)
+        {
+            var alreadyExistsCategory = await categoriesRepository.Exists(name);
+
+            if (alreadyExistsCategory)
+            {
+                return Json($"The name {name} already exists.");
+            }
+
+            return Json(true);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using SportsBettingApp.Validations;
+﻿using Microsoft.AspNetCore.Mvc;
+using SportsBettingApp.Validations;
 using System.ComponentModel.DataAnnotations;
 
 namespace SportsBettingApp.Models
@@ -11,6 +12,7 @@ namespace SportsBettingApp.Models
         [StringLength(maximumLength: 50, MinimumLength = 3, ErrorMessage = "The length of the {0} field must be between {2} and {1}")]
         [Display(Name = "Category Name")]
         [FirstLetterToUppercase]
+        [Remote(action: "VerifyIfCategoryAlreadyExists", controller: "Categories")]
         public string Name { get; set; }
     }
 }
